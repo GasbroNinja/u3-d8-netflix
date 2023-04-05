@@ -86,6 +86,7 @@ const CardDetail = (props) => {
                   backgroundAttachment: "fixed",
                   objectFit: "cover",
                 }}
+            //guardare prop online epicode
               />
             </div>
           </div>
