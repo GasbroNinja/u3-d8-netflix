@@ -1,0 +1,73 @@
+*{
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 12px rgba(102, 46, 46, 0.491);
+  border-radius: 20px;
+  
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  -webkit-box-shadow: inset 0 0 6px rgba(240, 74, 74, 0.5);
+  
+}
+
+.mycardanimation{
+  position: relative;
+}
+
+.mycardanimation:hover{
+  
+  transition: all 250ms ease-out;
+  transition-delay: 200ms;
+
+}
+
+.mycardanimationback:hover{
+  
+  opacity: 1;
+  transform: scale(1.2);
+  transition: all 250ms ease-out;
+  transition-delay: 200ms;
+  z-index: 989;
+}
+
+.titleanimation{
+  opacity: 0;
+  display: hidden;
+  position: absolute;
+  height: 90%;
+ 
+  top: 0;
+  
+}
+
+.titleanimationback:hover{
+  
+  max-width: 100%;
+  display: block;
+  opacity: 1;
+  transform: scale(1.2);
+  transition: all 250ms ease-out;
+  z-index: 999;
+  animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(-100px);
+    transform: translateY(-100px);
+
+  }
+
+  100% {
+    transform: translateY(40px);
+    transform: translateY(40px);
+  }
+}
