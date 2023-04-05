@@ -6,6 +6,7 @@ import "./App.css"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from "./components/Profile";
 import NotFound from "./components/NotFound";
+import CardDetail from "./components/CardDetail";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <MyNav />
         <Routes>
           <Route path="/" element={<MyHomePage />} />
+          <Route path="/card-detail/:id" element={<CardDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route
             path="*"

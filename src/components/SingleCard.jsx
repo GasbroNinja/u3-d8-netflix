@@ -1,62 +1,61 @@
-import { Component } from "react";
+import { Link } from "react-router-dom";
 import "../App.css"
 
 
-class SingleCard extends Component {
-  render() {
-    
+const SingleCard = (props) => {
 
     return (
       <>
-        <div
-          id="imgtitlelabel"
-          className="mycardanimation mycardanimationback col-6 cols-sm-4 col-md-4 col-lg-2 border-none"
-          style={{ maxHeight: "100%" }}
-        >
+        <Link to={`/card-detail/${props.id}`}>
           <div
             id="imgtitlelabel"
-            className="card border-none d-flex border-dark "
-            style={{ maxHeight: "100%", position: "relative" }}
+            className="mycardanimation mycardanimationback col-6 cols-sm-4 col-md-4 col-lg-2 border-none"
+            style={{ maxHeight: "100%" }}
           >
             <div
               id="imgtitlelabel"
-              
-              className="card-body bg-trasparent border-dark d-flex align-items-center justify-content-center p-0"
-              style={{
-                minHeight: "150px",
-                position: "absolute",
-                zIndex: "1000",
-                top: "0",
-                left: "0",
-                minWidth: "180px",
-              }}
+              className="card border-none d-flex border-dark "
+              style={{ maxHeight: "100%", position: "relative" }}
             >
-              <label
-                htmlFor="imgtitlelabel"
+              <div
                 id="imgtitlelabel"
-                className="h6 titleanimation titleanimationback card-title text-light p-0 m-0 bg-dark d-flex justify-content-center border border-3 px-2 border-secondary rounded-4 align-items-center"
-                style={{ marginTop: "100px" }}
+                className="card-body bg-trasparent border-dark d-flex align-items-center justify-content-center p-0"
+                style={{
+                  minHeight: "150px",
+                  position: "absolute",
+                  zIndex: "1000",
+                  top: "0",
+                  left: "0",
+                  minWidth: "180px",
+                }}
               >
-                {this.props.title}
-              </label>
+                <label
+                  htmlFor="imgtitlelabel"
+                  id="imgtitlelabel"
+                  className="h6 titleanimation titleanimationback card-title text-light p-0 m-0 bg-dark d-flex justify-content-center border border-3 px-2 border-secondary rounded-4 align-items-center"
+                  style={{ marginTop: "100px" }}
+                >
+                  {props.title}
+                </label>
+              </div>
+              <img
+                id="imgtitlelabel"
+                src={props.src}
+                className=" border-none"
+                alt={props.alt}
+                style={{
+                  maxHeight: "200px",
+                  backgroundPosition: "center",
+                  backgroundAttachment: "fixed",
+                  objectFit: "cover",
+                }}
+              />
             </div>
-            <img
-              id="imgtitlelabel"
-              src={this.props.src}
-              className=" border-none"
-              alt={this.props.alt}
-              style={{
-                maxHeight: "200px",
-                backgroundPosition: "center",
-                backgroundAttachment: "fixed",
-                objectFit: "cover",
-              }}
-            />
           </div>
-        </div>
+        </Link>
       </>
     );
   }
-};
+
 
 export default SingleCard;

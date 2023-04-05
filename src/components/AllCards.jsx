@@ -1,53 +1,67 @@
-import { Component } from "react";
 import SingleCard from "./SingleCard";
-
+import { useEffect, useState } from "react";
 import {
   Alert, Spinner,
 } from "react-bootstrap";
 
 
-class AllCards extends Component {
-  state = {
-    HarryPotter: [],
-    LOR: [],
-    ResidentE: [],
-    isLoading: true
-  };
+const AllCards = () => {
 
-  requestServer = async (endpoint, status) => {
+  const [HarryPotter, setHarryPotter] = useState([]);
+  const [LOR, setLOR] = useState([]);
+  const [ResidentE, setResidentE] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+
+
+  const requestServer = async (endpoint, status) => {
     try {
       const response = await fetch(endpoint);
 
 
     if (response.ok) {
         const data = await response.json();
-        this.setState({ [status]: data.Search, isLoading: false });
+
+       if(status === "HarryPotter"){
+          setHarryPotter(data.Search)
+          
+       } else if (status === "LOR") {
+          setLOR(data.Search)
+       } else if (status === "ResidentE") {
+          setResidentE(data.Search)
+       };
+      setIsLoading(false)
       } else {
-        this.setState({ error: true, isLoading: false });
+        setError(true)
+        setIsLoading(false)
       }
     } catch (error) {
-      this.setState({ error: true, errorMsg: error.message, isLoading: false });
+      setError(true)
+      setErrorMsg(error.message)
+      setIsLoading(false)
+
     }
 
   };
 
-  componentDidMount() {
-    this.requestServer(
+  useEffect(() => {
+    requestServer(
       "http://www.omdbapi.com/?apikey=b4f56189&s=harry%20potter",
       "HarryPotter"
     );
-    this.requestServer(
+    requestServer(
       "http://www.omdbapi.com/?apikey=b4f56189&s=Lord%20Of%20Rings",
       "LOR"
     );
-    this.requestServer(
+    requestServer(
       "http://www.omdbapi.com/?apikey=b4f56189&s=Resident%20Evil",
       "ResidentE"
     );
 
-  }
-
-  render() {
+  },[]);
+  
     return (
       <>
         <div className="container-fluid p-0">
@@ -61,29 +75,28 @@ class AllCards extends Component {
                 className="row row-cols-6 justify-content-between g-3 d-flex flex-nowrap pb-3"
                 style={{ overflowX: "scroll", overflowY: "hidden" }}
               >
-                {this.state.isLoading && !this.state.error && (
+                {isLoading && !error && (
                   <Spinner animation="border" variant="light" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </Spinner>
                 )}
-                {this.state.error && !this.state.isLoading && (
+                {error && !isLoading && (
                   <Alert variant="danger">
-                    {this.state.errorMsg
-                      ? this.state.errorMsg
-                      : "Errore nel reperire i dati"}
+                    {errorMsg ? errorMsg : "Errore nel reperire i dati"}
                   </Alert>
                 )}
                 ;
-                {this.state.HarryPotter.map((HarryPotter) => (
+                {HarryPotter.map((HarryPotter) => (
                   <SingleCard
                     key={HarryPotter.imdbID}
+                    id={HarryPotter.imdbID}
                     src={HarryPotter.Poster}
                     alt={HarryPotter.Title}
                     title={HarryPotter.Title}
                     HarryPotter={HarryPotter}
                   />
                 ))}
-                ;
+                
               </div>
             </div>
           </div>
@@ -98,20 +111,18 @@ class AllCards extends Component {
                 className="row row-cols-6 justify-content-between g-3 d-flex flex-nowrap pb-3"
                 style={{ overflowX: "scroll", overflowY: "hidden" }}
               >
-                {this.state.isLoading && !this.state.error && (
+                {isLoading && !error && (
                   <Spinner animation="border" variant="light" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </Spinner>
                 )}
-                {this.state.error && !this.state.isLoading && (
+                {error && !isLoading && (
                   <Alert variant="danger">
-                    {this.state.errorMsg
-                      ? this.state.errorMsg
-                      : "Errore nel reperire i dati"}
+                    {errorMsg ? errorMsg : "Errore nel reperire i dati"}
                   </Alert>
                 )}
                 ;
-                {this.state.LOR.map((LOR) => (
+                {LOR.map((LOR) => (
                   <SingleCard
                     key={LOR.imdbID}
                     src={LOR.Poster}
@@ -134,20 +145,18 @@ class AllCards extends Component {
                 className="row row-cols-5 justify-content-between g-3 d-flex flex-nowrap pb-3"
                 style={{ overflowX: "scroll", overflowY: "hidden" }}
               >
-                {this.state.isLoading && !this.state.error && (
+                {isLoading && !error && (
                   <Spinner animation="border" variant="light" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </Spinner>
                 )}
-                {this.state.error && !this.state.isLoading && (
+                {error && !isLoading && (
                   <Alert variant="danger">
-                    {this.state.errorMsg
-                      ? this.state.errorMsg
-                      : "Errore nel reperire i dati"}
+                    {errorMsg ? errorMsg : "Errore nel reperire i dati"}
                   </Alert>
                 )}
                 ;
-                {this.state.ResidentE.map((ResidentE) => (
+                {ResidentE.map((ResidentE) => (
                   <SingleCard
                     key={ResidentE.imdbID}
                     src={ResidentE.Poster}
@@ -164,6 +173,6 @@ class AllCards extends Component {
       </>
     );
   }
-}
+
 
 export default AllCards;
