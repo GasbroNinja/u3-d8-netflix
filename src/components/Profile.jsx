@@ -1,10 +1,9 @@
-import MyNav from "./MyNav";
+
 import image2 from "../avatar.png";
 
 
 const Profile = () => (
   <>
-    <MyNav />
     <div className="container-fluid p-0 bg-dark min-vh-100 pb-3">
       <div className="container d-flex align-items-center text-light p-0 mb-3 pt-5">
         <div className="container w-50">
